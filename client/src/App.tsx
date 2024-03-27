@@ -1,9 +1,8 @@
-const App = () => {
-  return (
-    <div className="App">
-      Hello World!
-    </div>
-  );
-}
+import { FC } from "react";
+import TaskBoard from "./components/TaskBoard";
+
+const App: FC = () => {
+  return <TaskBoard />;
+};
 
 export default App;
