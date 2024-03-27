@@ -1,0 +1,48 @@
+import { ChangeEvent, KeyboardEvent, FC, useState } from "react";
+
+interface EditableTextProps {
+  initialText: string;
+  onSave: (text: string) => void;
+}
+
+const EditableText: FC<EditableTextProps> = ({ initialText, onSave }) => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [text, setText] = useState<string>(initialText);
+
+  const handleDoubleClick = (): void => setIsEditing(true);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setText(event.target.value);
+  };
+
+  const handleSave = (): void => {
+    onSave(text);
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      setIsEditing(false);
+    }
+  };
+
+  return (
+    <div className="w-full" onDoubleClick={handleDoubleClick}>
+      {isEditing ? (
+        <input
+          type="text"
+          value={text}
+          className="outline-none w-full"
+          onKeyDown={handleKeyDown}
+          onChange={handleChange}
+          onBlur={handleSave}
+          autoFocus
+        />
+      ) : (
+        <span>{text}</span>
+      )}
+    </div>
+  );
+};
+
+export default EditableText;
