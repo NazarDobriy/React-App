@@ -15,13 +15,14 @@ const EditableText: FC<EditableTextProps> = ({ initialText, onSave }) => {
     setText(event.target.value);
   };
 
-  const handleSave = (): void => {
+  const handleBlur = (): void => {
     onSave(text);
     setIsEditing(false);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
+      onSave(text);
       setIsEditing(false);
     }
   };
@@ -35,7 +36,7 @@ const EditableText: FC<EditableTextProps> = ({ initialText, onSave }) => {
           className="outline-none w-full"
           onKeyDown={handleKeyDown}
           onChange={handleChange}
-          onBlur={handleSave}
+          onBlur={handleBlur}
           autoFocus
         />
       ) : (

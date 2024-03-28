@@ -1,26 +1,35 @@
-import { FC, Fragment, ReactNode, useState } from "react";
+import { FC, useEffect } from "react";
 import BoardButton from "./UI/BoardButton";
 import IconPlus from "./UI/Icons/IconPlus";
 import IconReload from "./UI/Icons/IconReload";
 import TaskList from "./TaskList";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import {
+  fetchTaskLists,
+  createTaskList
+} from "../store/reducers/ActionCreators";
+import { taskList } from "../consts/TaskList";
 
 const TaskBoard: FC = () => {
-  const [taskList, setTaskList] = useState<ReactNode[]>([]);
+  const dispatch = useAppDispatch();
+  const { taskLists } = useAppSelector((state) => state.taskListReducer);
 
-  const createTaskList = (): void => setTaskList([...taskList, <TaskList />]);
+  useEffect(() => {
+    dispatch(fetchTaskLists());
+  }, [dispatch]);
 
   return (
     <div className="px-14 py-8 md:px-24">
       <nav className="flex justify-between flex-col sm:flex-row gap-5 sm:gap-0 items-center">
         <h2 className="text-xl font-bold">My Task board</h2>
         <section className="flex">
-          <BoardButton styles="mr-5" clickHandler={createTaskList}>
+          <BoardButton styles="mr-5" clickHandler={() => {}}>
             <IconReload />
             History
           </BoardButton>
           <BoardButton
             styles="text-white bg-sky-800"
-            clickHandler={createTaskList}
+            clickHandler={() => dispatch(createTaskList(taskList))}
           >
             <IconPlus color="white" />
             Create new list
@@ -29,8 +38,8 @@ const TaskBoard: FC = () => {
       </nav>
 
       <section className="mt-6 flex gap-4 flex-wrap justify-center sm:justify-start">
-        {taskList.map((task, index) => (
-          <Fragment key={index}>{task}</Fragment>
+        {taskLists.map((taskList) => (
+          <TaskList key={taskList.id} taskList={taskList} />
         ))}
       </section>
     </div>
