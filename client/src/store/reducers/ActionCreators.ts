@@ -55,3 +55,17 @@ export const updateTaskList =
       );
     }
   };
+
+  export const deleteTaskList = (id: number) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(taskListSlice.actions.deleteTaskList());
+      const response = await axios.delete<ITaskList>(`${url}/${id}`);
+      dispatch(taskListSlice.actions.deleteTaskListSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        taskListSlice.actions.deleteTaskListFailure(
+          error instanceof Error ? error.message : "Fetching resource error"
+        )
+      );
+    }
+  };
