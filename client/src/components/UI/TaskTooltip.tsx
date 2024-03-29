@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
 interface TaskTooltipProps {
@@ -7,6 +7,8 @@ interface TaskTooltipProps {
 }
 
 const TaskTooltip: FC<TaskTooltipProps> = ({ anchor, children }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <Tooltip
       anchorSelect={anchor}
@@ -17,10 +19,11 @@ const TaskTooltip: FC<TaskTooltipProps> = ({ anchor, children }) => {
       }}
       place="bottom-start"
       border="2px solid #e5e7eb"
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
       clickable
-      delayHide={500}
     >
-      {children}
+      <div onClick={() => setIsOpen(false)}>{children}</div>
     </Tooltip>
   );
 };
