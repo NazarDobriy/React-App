@@ -1,13 +1,22 @@
-import { ChangeEvent, KeyboardEvent, FC, useState } from "react";
+import { ChangeEvent, KeyboardEvent, FC, useState, useEffect } from "react";
 
 interface EditableTextProps {
   initialText: string;
+  isInitialEdit: boolean;
   onSave: (text: string) => void;
 }
 
-const EditableText: FC<EditableTextProps> = ({ initialText, onSave }) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+const EditableText: FC<EditableTextProps> = ({
+  isInitialEdit,
+  initialText,
+  onSave
+}) => {
+  const [isEditing, setIsEditing] = useState<boolean>(isInitialEdit);
   const [text, setText] = useState<string>(initialText);
+
+  useEffect(() => {
+    setIsEditing(isInitialEdit);
+  }, [isInitialEdit]);
 
   const handleDoubleClick = (): void => setIsEditing(true);
 
@@ -21,7 +30,7 @@ const EditableText: FC<EditableTextProps> = ({ initialText, onSave }) => {
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       onSave(text);
       setIsEditing(false);
     }
