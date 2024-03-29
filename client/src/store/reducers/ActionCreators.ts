@@ -14,7 +14,7 @@ export const fetchTaskLists = () => async (dispatch: AppDispatch) => {
   } catch (error) {
     dispatch(
       taskListSlice.actions.fetchTaskListsFailure(
-        error instanceof Error ? error.message : "Fetching error"
+        error instanceof Error ? error.message : "Fetching resource error"
       )
     );
   }
@@ -32,7 +32,7 @@ export const createTaskList =
     } catch (error) {
       dispatch(
         taskListSlice.actions.createTaskListFailure(
-          error instanceof Error ? error.message : "Fetching error"
+          error instanceof Error ? error.message : "Create resource error"
         )
       );
     }
@@ -50,7 +50,21 @@ export const updateTaskList =
     } catch (error) {
       dispatch(
         taskListSlice.actions.updateTaskListFailure(
-          error instanceof Error ? error.message : "Fetching error"
+          error instanceof Error ? error.message : "Update resource error"
+        )
+      );
+    }
+  };
+
+  export const deleteTaskList = (id: number) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(taskListSlice.actions.deleteTaskList());
+      const response = await axios.delete<ITaskList>(`${url}/${id}`);
+      dispatch(taskListSlice.actions.deleteTaskListSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        taskListSlice.actions.deleteTaskListFailure(
+          error instanceof Error ? error.message : "Fetching resource error"
         )
       );
     }

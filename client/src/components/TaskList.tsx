@@ -7,19 +7,27 @@ import { ITaskList } from "../models/TaskList";
 
 interface TaskListProps {
   taskList: ITaskList;
+  clickRemoveHandler?: () => void;
 }
 
-const TaskList: FC<TaskListProps> = ({ taskList }) => {
+const TaskList: FC<TaskListProps> = ({ taskList, clickRemoveHandler }) => {
   const [taskCards, setTaskCards] = useState<ReactNode[]>([]);
 
-  const createTaskCard = (): void => setTaskCards([...taskCards, <TaskCard />]);
+  const createTaskCard = (): void => {
+    setTaskCards([...taskCards, <TaskCard />]);
+  };
 
   return (
     <div className="w-64">
-      <TaskListInfo taskList={taskList} amount={taskCards.length} />
+      <TaskListInfo
+        taskList={taskList}
+        amount={taskCards.length}
+        clickAddHandler={createTaskCard}
+        clickRemoveHandler={clickRemoveHandler}
+      />
 
       <BoardButton
-        styles="w-full mt-3 border-dashed"
+        styles="w-full mt-3 border-dashed border-2 justify-center"
         clickHandler={createTaskCard}
       >
         <IconPlus />

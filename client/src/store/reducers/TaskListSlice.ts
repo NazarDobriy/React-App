@@ -56,6 +56,20 @@ export const taskListSlice = createSlice({
     updateTaskListFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    deleteTaskList(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    deleteTaskListSuccess(state, action: PayloadAction<ITaskList>) {
+      state.isLoading = false;
+      state.taskLists = state.taskLists.filter(
+        (taskList) => taskList.id !== action.payload.id
+      );
+    },
+    deleteTaskListFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
     }
   }
 });
