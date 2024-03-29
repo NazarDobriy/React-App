@@ -1,13 +1,19 @@
 import type { FC, SVGProps } from "react";
 
-const IconCollapse: FC = (props: SVGProps<SVGSVGElement>) => {
+interface IconCollapseProps {
+  id?: string;
+  props?: SVGProps<SVGSVGElement>;
+}
+
+const IconCollapse: FC<IconCollapseProps> = ({ id, props }) => {
   return (
     <svg
+      id={id}
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
       height="1em"
       viewBox="0 0 20 20"
-      className="cursor-pointer"
+      className="cursor-pointer outline-none"
       {...props}
     >
       <path
