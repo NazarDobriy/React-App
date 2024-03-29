@@ -23,7 +23,7 @@ export class TaskListController {
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  delete(@Param('id', ParseIntPipe) id: number): Promise<TaskList> {
     return this.taskListService.delete(id);
   }
 

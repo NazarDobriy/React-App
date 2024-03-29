@@ -15,12 +15,13 @@ export class TaskListService {
     return taskList;
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<TaskList> {
     const taskList = await this.taskListRepository.findByPk(id);
     if (!taskList) {
       throw new NotFoundException(`Task list with ID ${id} not found`);
     }
     await taskList.destroy();
+    return taskList;
   }
 
   async update(id: number, dto: UpdateTaskListDto): Promise<TaskList> {
