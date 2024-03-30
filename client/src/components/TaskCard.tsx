@@ -10,6 +10,7 @@ import IconEdit from "./UI/icons/IconEdit";
 import IconTrash from "./UI/icons/IconTrash";
 import { useAppDispatch } from "../hooks/redux";
 import { deleteTaskCard } from "../store/reducers/ActionCreators";
+import IconCalendar from "./UI/icons/IconCalendar";
 
 interface TaskCardProps {
   taskCard: ITaskCard;
@@ -48,7 +49,10 @@ const TaskCard: FC<TaskCardProps> = ({ taskCard }) => {
 
       <h5 className="opacity-70">{taskCard.description}</h5>
 
-      <TaskDatePicker disabled={true} />
+      <section className="flex">
+        <IconCalendar />
+        <TaskDatePicker styles="ml-3" disabled={true} />
+      </section>
 
       <PriorityLabel name={taskCard.priority} />
 
