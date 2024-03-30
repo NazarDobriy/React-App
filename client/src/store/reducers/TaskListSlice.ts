@@ -88,6 +88,26 @@ export const taskListSlice = createSlice({
     createTaskCardFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    deleteTaskCard(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    deleteTaskCardSuccess(state, action: PayloadAction<ITaskCard>) {
+      state.isLoading = false;
+      const taskList = state.taskLists.find(
+        (item) => item.id === action.payload.taskListId
+      );
+
+      if (taskList) {
+        taskList.taskCards = taskList.taskCards.filter(
+          (item) => item.id !== action.payload.id
+        );
+      }
+    },
+    deleteTaskCardFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
     }
   }
 });
