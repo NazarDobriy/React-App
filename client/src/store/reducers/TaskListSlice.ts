@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ITaskList } from "../../models/TaskList";
+import { ITaskCard } from "../../models/TaskCard";
 
 interface TaskListState {
   taskLists: ITaskList[];
@@ -68,6 +69,23 @@ export const taskListSlice = createSlice({
       );
     },
     deleteTaskListFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    createTaskCard(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    createTaskCardSuccess(state, action: PayloadAction<ITaskCard>) {
+      state.isLoading = false;
+      const taskList = state.taskLists.find(
+        (item) => item.id === action.payload.taskListId
+      );
+      if (taskList) {
+        taskList.taskCards.push(action.payload);
+      }
+    },
+    createTaskCardFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.error = action.payload;
     }
