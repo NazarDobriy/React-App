@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { TaskCard } from 'src/task-card/task-card.model';
 
 @Table({ tableName: 'TaskList' })
 export class TaskList extends Model<TaskList, { name: string }> {
@@ -15,4 +16,7 @@ export class TaskList extends Model<TaskList, { name: string }> {
     allowNull: false
   })
   name: string;
+
+  @HasMany(() => TaskCard)
+  taskCards: TaskCard[];
 }

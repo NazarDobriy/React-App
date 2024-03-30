@@ -3,6 +3,7 @@ import { TaskList } from './task-list.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateTaskListDto } from './dto/create-task-list.dto';
 import { UpdateTaskListDto } from './dto/update-task-list.dto';
+import { TaskCard } from 'src/task-card/task-card.model';
 
 @Injectable()
 export class TaskListService {
@@ -35,7 +36,9 @@ export class TaskListService {
   }
 
   async getAll(): Promise<TaskList[]> {
-    const taskLists = await this.taskListRepository.findAll();
+    const taskLists = await this.taskListRepository.findAll({
+      include: TaskCard
+    });
     return taskLists;
   }
 }

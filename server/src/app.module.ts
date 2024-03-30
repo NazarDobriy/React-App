@@ -5,6 +5,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { TaskList } from './task-list/task-list.model';
 import { TaskListModule } from './task-list/task-list.module';
+import { TaskCardModule } from './task-card/task-card.module';
+import { TaskCard } from './task-card/task-card.model';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { TaskListModule } from './task-list/task-list.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [TaskList],
+      models: [TaskList, TaskCard],
       autoLoadModels: true
     }),
-    TaskListModule
+    TaskListModule,
+    TaskCardModule
   ],
   controllers: [AppController],
   providers: [AppService]
