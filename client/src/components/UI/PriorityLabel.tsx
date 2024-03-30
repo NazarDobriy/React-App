@@ -1,6 +1,5 @@
 import { FC } from "react";
-
-type PriorityLabelType = "Low" | "Medium" | "High";
+import { PriorityLabelType } from "../../models/TaskCard";
 
 const PriorityLabel: FC<{ name: PriorityLabelType }> = ({ name }) => {
   return (

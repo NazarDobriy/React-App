@@ -1,41 +1,37 @@
-import { FC, Fragment, ReactNode, useState } from "react";
+import { FC } from "react";
 import TaskListInfo from "./TaskListInfo";
 import BoardButton from "./UI/BoardButton";
-import IconPlus from "./UI/Icons/IconPlus";
+import IconPlus from "./UI/icons/IconPlus";
 import TaskCard from "./TaskCard";
 import { ITaskList } from "../models/TaskList";
+import { useAppDispatch } from "../hooks/redux";
+import { createTaskCard } from "../store/reducers/ActionCreators";
+import { taskCard } from "../consts/TaskCard";
 
 interface TaskListProps {
   taskList: ITaskList;
-  clickRemoveHandler?: () => void;
+  taskLists: ITaskList[];
 }
 
-const TaskList: FC<TaskListProps> = ({ taskList, clickRemoveHandler }) => {
-  const [taskCards, setTaskCards] = useState<ReactNode[]>([]);
-
-  const createTaskCard = (): void => {
-    setTaskCards([...taskCards, <TaskCard />]);
-  };
+const TaskList: FC<TaskListProps> = ({ taskList, taskLists }) => {
+  const dispatch = useAppDispatch();
 
   return (
     <div className="w-64">
-      <TaskListInfo
-        taskList={taskList}
-        amount={taskCards.length}
-        clickAddHandler={createTaskCard}
-        clickRemoveHandler={clickRemoveHandler}
-      />
+      <TaskListInfo taskList={taskList} amount={taskList.taskCards.length} />
 
       <BoardButton
         styles="w-full mt-3 border-dashed border-2 justify-center"
-        clickHandler={createTaskCard}
+        clickHandler={() =>
+          dispatch(createTaskCard({ ...taskCard, taskListId: taskList.id }))
+        }
       >
         <IconPlus />
         Add new card
       </BoardButton>
 
-      {taskCards.map((card, index) => (
-        <Fragment key={index}>{card}</Fragment>
+      {taskList.taskCards.map((taskCard) => (
+        <TaskCard key={taskCard.id} taskCard={taskCard} taskLists={taskLists} />
       ))}
     </div>
   );

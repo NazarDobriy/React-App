@@ -1,30 +1,28 @@
 import { FC, useState } from "react";
-import IconCollapse from "./UI/Icons/IconCollapse";
+import IconCollapse from "./UI/icons/IconCollapse";
 import EditableText from "../helpers/EditableText";
 import { useAppDispatch } from "../hooks/redux";
-import { updateTaskList } from "../store/reducers/ActionCreators";
+import {
+  createTaskCard,
+  deleteTaskList,
+  updateTaskList
+} from "../store/reducers/ActionCreators";
 import { ITaskList } from "../models/TaskList";
 import TaskTooltip from "./UI/TaskTooltip";
 import BoardButton from "./UI/BoardButton";
-import IconTrash from "./UI/Icons/IconTrash";
-import IconPlus from "./UI/Icons/IconPlus";
-import IconEdit from "./UI/Icons/IconEdit";
+import IconTrash from "./UI/icons/IconTrash";
+import IconPlus from "./UI/icons/IconPlus";
+import IconEdit from "./UI/icons/IconEdit";
+import { taskCard } from "../consts/TaskCard";
 
 interface TaskListInfoProps {
   amount: number;
   taskList: ITaskList;
-  clickAddHandler?: () => void;
-  clickRemoveHandler?: () => void;
 }
 
-const TaskListInfo: FC<TaskListInfoProps> = ({
-  taskList,
-  amount,
-  clickAddHandler,
-  clickRemoveHandler
-}) => {
+const TaskListInfo: FC<TaskListInfoProps> = ({ taskList, amount }) => {
   const dispatch = useAppDispatch();
-  const anchor = `my-anchor-element-${taskList.id}`;
+  const anchor = `my-anchor-element-task-list-${taskList.id}`;
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleUpdateName = (text: string): void => {
@@ -32,6 +30,12 @@ const TaskListInfo: FC<TaskListInfoProps> = ({
       dispatch(updateTaskList({ ...taskList, name: text }));
     }
     setIsEditing(false);
+  };
+
+  const handleRemoveTaskList = (taskList: ITaskList): void => {
+    if (taskList.id) {
+      dispatch(deleteTaskList(taskList.id));
+    }
   };
 
   return (
@@ -54,14 +58,16 @@ const TaskListInfo: FC<TaskListInfoProps> = ({
           </BoardButton>
           <BoardButton
             styles="w-full hover:bg-gray-300"
-            clickHandler={clickAddHandler}
+            clickHandler={() =>
+              dispatch(createTaskCard({ ...taskCard, taskListId: taskList.id }))
+            }
           >
             <IconPlus />
             Add new card
           </BoardButton>
           <BoardButton
             styles="group w-full text-red-600 hover:bg-red-600 hover:text-black"
-            clickHandler={clickRemoveHandler}
+            clickHandler={() => handleRemoveTaskList(taskList)}
           >
             <IconTrash styles="text-red-600 group-hover:text-black" />
             Delete

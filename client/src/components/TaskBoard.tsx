@@ -1,16 +1,14 @@
 import { FC, useEffect } from "react";
 import BoardButton from "./UI/BoardButton";
-import IconPlus from "./UI/Icons/IconPlus";
-import IconReload from "./UI/Icons/IconReload";
+import IconPlus from "./UI/icons/IconPlus";
+import IconReload from "./UI/icons/IconReload";
 import TaskList from "./TaskList";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import {
   fetchTaskLists,
-  createTaskList,
-  deleteTaskList
+  createTaskList
 } from "../store/reducers/ActionCreators";
 import { taskList } from "../consts/TaskList";
-import { ITaskList } from "../models/TaskList";
 
 const TaskBoard: FC = () => {
   const dispatch = useAppDispatch();
@@ -19,12 +17,6 @@ const TaskBoard: FC = () => {
   useEffect(() => {
     dispatch(fetchTaskLists());
   }, [dispatch]);
-
-  const handleRemoveTaskList = (taskList: ITaskList): void => {
-    if (taskList.id) {
-      dispatch(deleteTaskList(taskList.id));
-    }
-  };
 
   return (
     <div className="px-14 py-8 md:px-24">
@@ -53,7 +45,7 @@ const TaskBoard: FC = () => {
           <TaskList
             key={taskList.id}
             taskList={taskList}
-            clickRemoveHandler={() => handleRemoveTaskList(taskList)}
+            taskLists={taskLists}
           />
         ))}
       </section>
