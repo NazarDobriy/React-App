@@ -1,5 +1,5 @@
 import { FC } from "react";
-import IconCollapse from "./UI/Icons/IconCollapse";
+import IconCollapse from "./UI/icons/IconCollapse";
 import PriorityLabel from "./UI/PriorityLabel";
 import DropDown from "./UI/DropDown";
 import { ITaskCard } from "../models/TaskCard";

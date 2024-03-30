@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import IconCalendar from "./Icons/IconCalendar";
+import IconCalendar from "./icons/IconCalendar";
 
 interface TaskDatePickerProps {
   styles?: string;

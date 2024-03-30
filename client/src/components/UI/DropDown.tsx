@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from "react";
-import IconArrowDown from "./Icons/IconArrowDown";
+import IconArrowDown from "./icons/IconArrowDown";
 import useClickOutsideDetector from "../../hooks/clickOutsideDetector";
 
 const DropDown: FC = () => {

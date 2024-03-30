@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import BoardButton from "./UI/BoardButton";
-import IconPlus from "./UI/Icons/IconPlus";
-import IconReload from "./UI/Icons/IconReload";
+import IconPlus from "./UI/icons/IconPlus";
+import IconReload from "./UI/icons/IconReload";
 import TaskList from "./TaskList";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import {
