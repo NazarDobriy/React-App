@@ -105,3 +105,24 @@ export const deleteTaskCard = (id: number) => async (dispatch: AppDispatch) => {
     );
   }
 };
+
+export const updateTaskCard =
+  (taskCard: ITaskCard) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(taskListSlice.actions.updateTaskCard());
+      const response = await axios.patch<ITaskCard>(
+        `${url}/task-card/${taskCard.id}`,
+        {
+          method: "PATCH",
+          ...taskCard
+        }
+      );
+      dispatch(taskListSlice.actions.updateTaskCardSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        taskListSlice.actions.updateTaskCardFailure(
+          error instanceof Error ? error.message : "Update resource error"
+        )
+      );
+    }
+  };
