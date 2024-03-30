@@ -43,10 +43,13 @@ export const updateTaskList =
   (taskList: ITaskList) => async (dispatch: AppDispatch) => {
     try {
       dispatch(taskListSlice.actions.updateTaskList());
-      const response = await axios.patch<ITaskList>(`${url}/tasks/${taskList.id}`, {
-        method: "PATCH",
-        ...taskList
-      });
+      const response = await axios.patch<ITaskList>(
+        `${url}/tasks/${taskList.id}`,
+        {
+          method: "PATCH",
+          ...taskList
+        }
+      );
       dispatch(taskListSlice.actions.updateTaskListSuccess(response.data));
     } catch (error) {
       dispatch(
@@ -57,21 +60,21 @@ export const updateTaskList =
     }
   };
 
-  export const deleteTaskList = (id: number) => async (dispatch: AppDispatch) => {
-    try {
-      dispatch(taskListSlice.actions.deleteTaskList());
-      const response = await axios.delete<ITaskList>(`${url}/tasks/${id}`);
-      dispatch(taskListSlice.actions.deleteTaskListSuccess(response.data));
-    } catch (error) {
-      dispatch(
-        taskListSlice.actions.deleteTaskListFailure(
-          error instanceof Error ? error.message : "Fetching resource error"
-        )
-      );
-    }
-  };
+export const deleteTaskList = (id: number) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(taskListSlice.actions.deleteTaskList());
+    const response = await axios.delete<ITaskList>(`${url}/tasks/${id}`);
+    dispatch(taskListSlice.actions.deleteTaskListSuccess(response.data));
+  } catch (error) {
+    dispatch(
+      taskListSlice.actions.deleteTaskListFailure(
+        error instanceof Error ? error.message : "Fetching resource error"
+      )
+    );
+  }
+};
 
-  export const createTaskCard =
+export const createTaskCard =
   (taskCard: ITaskCard) => async (dispatch: AppDispatch) => {
     try {
       dispatch(taskListSlice.actions.createTaskCard());
@@ -88,3 +91,17 @@ export const updateTaskList =
       );
     }
   };
+
+export const deleteTaskCard = (id: number) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(taskListSlice.actions.deleteTaskCard());
+    const response = await axios.delete<ITaskCard>(`${url}/task-card/${id}`);
+    dispatch(taskListSlice.actions.deleteTaskCardSuccess(response.data));
+  } catch (error) {
+    dispatch(
+      taskListSlice.actions.deleteTaskCardFailure(
+        error instanceof Error ? error.message : "Fetching resource error"
+      )
+    );
+  }
+};
