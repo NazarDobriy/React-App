@@ -24,7 +24,7 @@ const TaskListInfo: FC<TaskListInfoProps> = ({
   clickRemoveHandler
 }) => {
   const dispatch = useAppDispatch();
-  const anchor = `my-anchor-element-${taskList.id}`;
+  const anchor = `my-anchor-element-task-list-${taskList.id}`;
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleUpdateName = (text: string): void => {
