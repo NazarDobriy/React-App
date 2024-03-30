@@ -1,7 +1,7 @@
 import axios from "axios";
-import { AppDispatch } from "../store";
-import { ITaskList } from "../../models/TaskList";
-import { environment } from "../../environments/environment";
+import { AppDispatch } from "../../store";
+import { ITaskList } from "../../../models/TaskList";
+import { environment } from "../../../environments/environment";
 import { taskListSlice } from "./TaskListSlice";
 
 const url = `${environment.apiUrl}/tasks`;
