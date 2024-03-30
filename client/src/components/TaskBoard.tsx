@@ -6,11 +6,9 @@ import TaskList from "./TaskList";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import {
   fetchTaskLists,
-  createTaskList,
-  deleteTaskList
+  createTaskList
 } from "../store/reducers/ActionCreators";
 import { taskList } from "../consts/TaskList";
-import { ITaskList } from "../models/TaskList";
 
 const TaskBoard: FC = () => {
   const dispatch = useAppDispatch();
@@ -19,12 +17,6 @@ const TaskBoard: FC = () => {
   useEffect(() => {
     dispatch(fetchTaskLists());
   }, [dispatch]);
-
-  const handleRemoveTaskList = (taskList: ITaskList): void => {
-    if (taskList.id) {
-      dispatch(deleteTaskList(taskList.id));
-    }
-  };
 
   return (
     <div className="px-14 py-8 md:px-24">
@@ -50,11 +42,7 @@ const TaskBoard: FC = () => {
 
       <section className="mt-6 flex gap-4 flex-wrap justify-center sm:justify-start">
         {taskLists.map((taskList) => (
-          <TaskList
-            key={taskList.id}
-            taskList={taskList}
-            clickRemoveHandler={() => handleRemoveTaskList(taskList)}
-          />
+          <TaskList key={taskList.id} taskList={taskList} />
         ))}
       </section>
     </div>
