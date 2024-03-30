@@ -17,7 +17,7 @@ const DropDown: FC = () => {
   useClickOutsideDetector(wrapperRef, () => setIsOpen(false));
 
   return (
-    <div ref={wrapperRef} className="relative z-10">
+    <div ref={wrapperRef} className={`relative ${isOpen && "z-10"}`}>
       <div
         className="cursor-pointer flex items-center justify-between bg-gray-300 rounded px-2 py-1"
         onClick={toggleDropdown}
