@@ -108,6 +108,28 @@ export const taskListSlice = createSlice({
     deleteTaskCardFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    updateTaskCard(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    updateTaskCardSuccess(state, action: PayloadAction<ITaskCard>) {
+      state.isLoading = false;
+
+      const updatedTaskCard = action.payload;
+      const taskList = state.taskLists.find(
+        (item) => item.id === action.payload.taskListId
+      );
+
+      if (taskList) {
+        taskList.taskCards = taskList.taskCards.map((taskCard) =>
+          taskCard.id === updatedTaskCard.id ? updatedTaskCard : taskCard
+        );
+      }
+    },
+    updateTaskCardFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
     }
   }
 });
