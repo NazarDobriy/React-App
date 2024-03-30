@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import taskListReducer from "./reducers/task-list/TaskListSlice";
+import taskListReducer from "./reducers/TaskListSlice";
 
 const rootReducer = combineReducers({
   taskListReducer
