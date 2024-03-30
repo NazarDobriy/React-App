@@ -12,12 +12,16 @@ export class TaskListService {
   ) {}
 
   async create(dto: CreateTaskListDto): Promise<TaskList> {
-    const taskList = await this.taskListRepository.create(dto);
+    const taskList = await this.taskListRepository.create(dto, {
+      include: TaskCard
+    });
     return taskList;
   }
 
   async delete(id: number): Promise<TaskList> {
-    const taskList = await this.taskListRepository.findByPk(id);
+    const taskList = await this.taskListRepository.findByPk(id, {
+      include: TaskCard
+    });
     if (!taskList) {
       throw new NotFoundException(`Task list with ID ${id} not found`);
     }
@@ -26,7 +30,9 @@ export class TaskListService {
   }
 
   async update(id: number, dto: UpdateTaskListDto): Promise<TaskList> {
-    const taskList = await this.taskListRepository.findByPk(id);
+    const taskList = await this.taskListRepository.findByPk(id, {
+      include: TaskCard
+    });
     if (!taskList) {
       throw new NotFoundException(`Task list with ID ${id} not found`);
     }
