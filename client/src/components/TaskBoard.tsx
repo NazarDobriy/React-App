@@ -42,7 +42,11 @@ const TaskBoard: FC = () => {
 
       <section className="mt-6 flex gap-4 flex-wrap justify-center sm:justify-start">
         {taskLists.map((taskList) => (
-          <TaskList key={taskList.id} taskList={taskList} />
+          <TaskList
+            key={taskList.id}
+            taskList={taskList}
+            taskLists={taskLists}
+          />
         ))}
       </section>
     </div>

@@ -10,9 +10,10 @@ import { taskCard } from "../consts/TaskCard";
 
 interface TaskListProps {
   taskList: ITaskList;
+  taskLists: ITaskList[];
 }
 
-const TaskList: FC<TaskListProps> = ({ taskList }) => {
+const TaskList: FC<TaskListProps> = ({ taskList, taskLists }) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -30,7 +31,7 @@ const TaskList: FC<TaskListProps> = ({ taskList }) => {
       </BoardButton>
 
       {taskList.taskCards.map((taskCard) => (
-        <TaskCard key={taskCard.id} taskCard={taskCard} />
+        <TaskCard key={taskCard.id} taskCard={taskCard} taskLists={taskLists} />
       ))}
     </div>
   );
