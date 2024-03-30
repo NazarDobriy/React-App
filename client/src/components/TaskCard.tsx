@@ -9,20 +9,40 @@ import BoardButton from "./UI/BoardButton";
 import IconEdit from "./UI/icons/IconEdit";
 import IconTrash from "./UI/icons/IconTrash";
 import { useAppDispatch } from "../hooks/redux";
-import { deleteTaskCard } from "../store/reducers/ActionCreators";
+import {
+  createTaskCard,
+  deleteTaskCard
+} from "../store/reducers/ActionCreators";
 import IconCalendar from "./UI/icons/IconCalendar";
+import { ITaskList } from "../models/TaskList";
 
 interface TaskCardProps {
   taskCard: ITaskCard;
+  taskLists: ITaskList[];
 }
 
-const TaskCard: FC<TaskCardProps> = ({ taskCard }) => {
+const TaskCard: FC<TaskCardProps> = ({ taskCard, taskLists }) => {
   const dispatch = useAppDispatch();
   const anchor = `my-anchor-element-task-card-${taskCard.id}`;
 
   const handleRemoveTaskCard = (): void => {
     if (taskCard.id) {
       dispatch(deleteTaskCard(taskCard.id));
+    }
+  };
+
+  const handleMoveTaskCard = (taskListId: number | undefined): void => {
+    handleRemoveTaskCard();
+    if (taskListId) {
+      dispatch(
+        createTaskCard({
+          taskListId,
+          name: taskCard.name,
+          description: taskCard.description,
+          dueDate: taskCard.dueDate,
+          priority: taskCard.priority
+        })
+      );
     }
   };
 
@@ -56,7 +76,19 @@ const TaskCard: FC<TaskCardProps> = ({ taskCard }) => {
 
       <PriorityLabel name={taskCard.priority} />
 
-      <DropDown />
+      <DropDown>
+        {taskLists
+          .filter((taskList) => taskList.id !== taskCard.taskListId)
+          .map((taskList) => (
+            <div
+              key={taskList.id}
+              className="hover:bg-gray-400 py-1 px-2 rounded"
+              onClick={() => handleMoveTaskCard(taskList.id)}
+            >
+              {taskList.name}
+            </div>
+          ))}
+      </DropDown>
     </div>
   );
 };
