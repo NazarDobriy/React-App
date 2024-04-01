@@ -5,21 +5,23 @@ import "react-datepicker/dist/react-datepicker.css";
 interface TaskDatePickerProps {
   styles?: string;
   disabled?: boolean;
-  clickHandler?: () => void;
+  clickHandler?: (date: Date) => void;
+  initialStartDate?: Date;
 }
 
 const TaskDatePicker: FC<TaskDatePickerProps> = ({
   styles,
   disabled,
-  clickHandler
+  clickHandler,
+  initialStartDate = new Date()
 }) => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<Date>(initialStartDate);
 
   const handleChange = (date: Date | null) => {
     if (date) {
       setStartDate(date);
       if (clickHandler) {
-        clickHandler();
+        clickHandler(date);
       }
     }
   };
