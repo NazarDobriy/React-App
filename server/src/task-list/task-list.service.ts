@@ -43,7 +43,8 @@ export class TaskListService {
 
   async getAll(): Promise<TaskList[]> {
     const taskLists = await this.taskListRepository.findAll({
-      include: TaskCard
+      include: TaskCard,
+      order: [['createdAt', 'ASC']]
     });
     return taskLists;
   }
