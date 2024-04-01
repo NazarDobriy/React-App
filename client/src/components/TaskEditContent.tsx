@@ -56,8 +56,8 @@ const TaskEditContent: FC<TaskEditContentProps> = ({ taskCard }) => {
   };
 
   const handleUpdateTaskCardDate = (date: Date): void => {
-    if (date !== taskCard.dueDate) {
-      dispatch(updateTaskCard({ ...taskCard, dueDate: date }));
+    if (date.toISOString() !== taskCard.dueDate) {
+      dispatch(updateTaskCard({ ...taskCard, dueDate: date.toISOString() }));
     }
   };
 
@@ -109,7 +109,7 @@ const TaskEditContent: FC<TaskEditContentProps> = ({ taskCard }) => {
         <TaskDatePicker
           styles="font-semibold"
           disabled={!isEdit}
-          initialStartDate={taskCard.dueDate}
+          initialStartDate={new Date(taskCard.dueDate || '')}
           clickHandler={(date: Date) => handleUpdateTaskCardDate(date)}
         />
       </div>

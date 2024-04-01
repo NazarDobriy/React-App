@@ -5,7 +5,7 @@ export interface ITaskCard {
   id?: number;
   name: string;
   description: string;
-  dueDate: Date;
+  dueDate?: string;
   priority: PriorityLabelType;
   status: StatusType;
   taskListId?: number;
