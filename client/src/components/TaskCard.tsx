@@ -78,7 +78,7 @@ const TaskCard: FC<TaskCardProps> = ({ taskCard, taskLists }) => {
       <TaskEditModal visible={modal} setVisible={setModal}>
         <section className="flex justify-between">
           <TaskEditContent taskCard={taskCard} />
-          <ActivityEditContent />
+          <ActivityEditContent taskCard={taskCard} />
         </section>
       </TaskEditModal>
 

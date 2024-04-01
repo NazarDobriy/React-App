@@ -3,9 +3,11 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table
 } from 'sequelize-typescript';
+import { TaskCardHistory } from 'src/task-card-history/task-card-history.model';
 import { TaskList } from 'src/task-list/task-list.model';
 
 export type StatusType = 'To do' | 'Planned' | 'In process' | 'Closed';
@@ -71,4 +73,7 @@ export class TaskCard extends Model<TaskCard, TaskCardCreationAttr> {
 
   @BelongsTo(() => TaskList)
   taskList: TaskList;
+
+  @HasMany(() => TaskCardHistory)
+  taskCardHistories: TaskCardHistory[];
 }

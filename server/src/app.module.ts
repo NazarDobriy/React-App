@@ -7,6 +7,8 @@ import { TaskList } from './task-list/task-list.model';
 import { TaskListModule } from './task-list/task-list.module';
 import { TaskCardModule } from './task-card/task-card.module';
 import { TaskCard } from './task-card/task-card.model';
+import { TaskCardHistoryModule } from './task-card-history/task-card-history.module';
+import { TaskCardHistory } from './task-card-history/task-card-history.model';
 
 @Module({
   imports: [
@@ -20,11 +22,12 @@ import { TaskCard } from './task-card/task-card.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [TaskList, TaskCard],
+      models: [TaskList, TaskCard, TaskCardHistory],
       autoLoadModels: true
     }),
     TaskListModule,
-    TaskCardModule
+    TaskCardModule,
+    TaskCardHistoryModule
   ],
   controllers: [AppController],
   providers: [AppService]
