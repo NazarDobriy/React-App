@@ -19,8 +19,8 @@ export type ChangeType =
 
 interface TaskCardHistoryCreationAttr {
   changeType: ChangeType;
-  oldValue?: string;
-  newValue?: string;
+  oldValue?: string | Date;
+  newValue?: string | Date;
   timestamp: Date;
   taskCardId: number;
 }
@@ -53,13 +53,13 @@ export class TaskCardHistory extends Model<
   changeType: ChangeType;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.JSON,
     allowNull: true
   })
   oldValue: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.JSON,
     allowNull: true
   })
   newValue: string;
