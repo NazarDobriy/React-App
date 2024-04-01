@@ -12,14 +12,20 @@ export class TaskListService {
 
   async create(dto: TaskListDto): Promise<TaskList> {
     const taskList = await this.taskListRepository.create(dto, {
-      include: TaskCard
+      include: {
+        model: TaskCard,
+        order: [['createdAt', 'ASC']]
+      }
     });
     return taskList;
   }
 
   async delete(id: number): Promise<TaskList> {
     const taskList = await this.taskListRepository.findByPk(id, {
-      include: TaskCard
+      include: {
+        model: TaskCard,
+        order: [['createdAt', 'ASC']]
+      }
     });
     if (!taskList) {
       throw new NotFoundException(`Task list with ID ${id} not found`);
@@ -30,7 +36,10 @@ export class TaskListService {
 
   async update(id: number, dto: TaskListDto): Promise<TaskList> {
     const taskList = await this.taskListRepository.findByPk(id, {
-      include: TaskCard
+      include: {
+        model: TaskCard,
+        order: [['createdAt', 'ASC']]
+      }
     });
     if (!taskList) {
       throw new NotFoundException(`Task list with ID ${id} not found`);
@@ -42,7 +51,10 @@ export class TaskListService {
 
   async getAll(): Promise<TaskList[]> {
     const taskLists = await this.taskListRepository.findAll({
-      include: TaskCard,
+      include: {
+        model: TaskCard,
+        order: [['createdAt', 'ASC']]
+      },
       order: [['createdAt', 'ASC']]
     });
     return taskLists;
