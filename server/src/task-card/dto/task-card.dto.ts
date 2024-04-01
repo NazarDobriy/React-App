@@ -1,6 +1,6 @@
 import { PriorityLabelType, StatusType } from '../task-card.model';
 
-export class UpdateTaskCardDto {
+export class TaskCardDto {
   readonly name: string;
   readonly description: string;
   readonly dueDate: Date;

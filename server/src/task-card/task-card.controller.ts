@@ -9,22 +9,21 @@ import {
 } from '@nestjs/common';
 import { TaskCard } from './task-card.model';
 import { TaskCardService } from './task-card.service';
-import { CreateTaskCardDto } from './dto/create-task-card.dto';
-import { UpdateTaskCardDto } from './dto/update-task-card.dto';
+import { TaskCardDto } from './dto/task-card.dto';
 
 @Controller('task-card')
 export class TaskCardController {
   constructor(private taskCardService: TaskCardService) {}
 
   @Post()
-  create(@Body() dto: CreateTaskCardDto): Promise<TaskCard> {
+  create(@Body() dto: TaskCardDto): Promise<TaskCard> {
     return this.taskCardService.create(dto);
   }
 
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: UpdateTaskCardDto
+    @Body() dto: TaskCardDto
   ): Promise<TaskCard> {
     return this.taskCardService.update(id, dto);
   }

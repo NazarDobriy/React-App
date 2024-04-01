@@ -1,8 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { TaskCard } from './task-card.model';
-import { CreateTaskCardDto } from './dto/create-task-card.dto';
-import { UpdateTaskCardDto } from './dto/update-task-card.dto';
+import { TaskCardDto } from './dto/task-card.dto';
 
 @Injectable()
 export class TaskCardService {
@@ -10,7 +9,7 @@ export class TaskCardService {
     @InjectModel(TaskCard) private taskCardRepository: typeof TaskCard
   ) {}
 
-  async create(dto: CreateTaskCardDto): Promise<TaskCard> {
+  async create(dto: TaskCardDto): Promise<TaskCard> {
     const taskCard = await this.taskCardRepository.create(dto);
     return taskCard;
   }
@@ -24,7 +23,7 @@ export class TaskCardService {
     return taskCard;
   }
 
-  async update(id: number, dto: UpdateTaskCardDto): Promise<TaskCard> {
+  async update(id: number, dto: TaskCardDto): Promise<TaskCard> {
     const taskCard = await this.taskCardRepository.findByPk(id);
     if (!taskCard) {
       throw new NotFoundException(`Task card with ID ${id} not found`);
