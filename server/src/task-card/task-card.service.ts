@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { TaskCard } from './task-card.model';
 import { TaskCardDto } from './dto/task-card.dto';
+import { TaskCardHistory } from 'src/task-card-history/task-card-history.model';
 
 @Injectable()
 export class TaskCardService {
@@ -10,12 +11,20 @@ export class TaskCardService {
   ) {}
 
   async create(dto: TaskCardDto): Promise<TaskCard> {
-    const taskCard = await this.taskCardRepository.create(dto);
+    const taskCard = await this.taskCardRepository.create(dto, {
+      include: {
+        model: TaskCardHistory
+      }
+    });
     return taskCard;
   }
 
   async delete(id: number): Promise<TaskCard> {
-    const taskCard = await this.taskCardRepository.findByPk(id);
+    const taskCard = await this.taskCardRepository.findByPk(id, {
+      include: {
+        model: TaskCardHistory
+      }
+    });
     if (!taskCard) {
       throw new NotFoundException(`Task card with ID ${id} not found`);
     }
@@ -24,7 +33,11 @@ export class TaskCardService {
   }
 
   async update(id: number, dto: TaskCardDto): Promise<TaskCard> {
-    const taskCard = await this.taskCardRepository.findByPk(id);
+    const taskCard = await this.taskCardRepository.findByPk(id, {
+      include: {
+        model: TaskCardHistory
+      }
+    });
     if (!taskCard) {
       throw new NotFoundException(`Task card with ID ${id} not found`);
     }
