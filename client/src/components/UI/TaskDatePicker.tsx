@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -25,6 +25,10 @@ const TaskDatePicker: FC<TaskDatePickerProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    setStartDate(initialStartDate);
+  }, [initialStartDate]);
 
   return (
     <DatePicker
