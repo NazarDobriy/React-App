@@ -18,12 +18,17 @@ import { taskCard } from "../consts/TaskCard";
 interface TaskListInfoProps {
   amount: number;
   taskList: ITaskList;
+  isNewList: boolean;
 }
 
-const TaskListInfo: FC<TaskListInfoProps> = ({ taskList, amount }) => {
+const TaskListInfo: FC<TaskListInfoProps> = ({
+  taskList,
+  amount,
+  isNewList
+}) => {
   const dispatch = useAppDispatch();
   const anchor = `my-anchor-element-task-list-${taskList.id}`;
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(isNewList);
 
   const handleUpdateName = (text: string): void => {
     if (text !== taskList.name) {
@@ -43,6 +48,7 @@ const TaskListInfo: FC<TaskListInfoProps> = ({ taskList, amount }) => {
       <EditableText
         isInitialEdit={isEditing}
         initialText={taskList.name}
+        styles="w-full"
         onSave={(text: string) => handleUpdateName(text)}
       />
       <section className="flex items-center gap-6">

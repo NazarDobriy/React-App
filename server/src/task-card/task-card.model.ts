@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { TaskList } from 'src/task-list/task-list.model';
 
+export type StatusType = 'To do' | 'Planned' | 'In process' | 'Closed';
 export type PriorityLabelType = 'Low' | 'Medium' | 'High';
 
 interface TaskCardCreationAttr {
@@ -15,6 +16,7 @@ interface TaskCardCreationAttr {
   description: string;
   dueDate: Date;
   priority: PriorityLabelType;
+  status: StatusType;
   taskListId: number;
 }
 
@@ -48,9 +50,17 @@ export class TaskCard extends Model<TaskCard, TaskCardCreationAttr> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 'Low'
   })
   priority: PriorityLabelType;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    defaultValue: 'To do'
+  })
+  status: StatusType;
 
   @ForeignKey(() => TaskList)
   @Column({

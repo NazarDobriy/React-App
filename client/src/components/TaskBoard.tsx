@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import BoardButton from "./UI/BoardButton";
 import IconPlus from "./UI/icons/IconPlus";
 import IconReload from "./UI/icons/IconReload";
@@ -13,10 +13,16 @@ import { taskList } from "../consts/TaskList";
 const TaskBoard: FC = () => {
   const dispatch = useAppDispatch();
   const { taskLists } = useAppSelector((state) => state.taskListReducer);
+  const [isNewList, setIsNewList] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(fetchTaskLists());
   }, [dispatch]);
+
+  const handleCreateTaskList = (): void => {
+    dispatch(createTaskList(taskList));
+    setIsNewList(true);
+  };
 
   return (
     <div className="px-14 py-8 md:px-24">
@@ -32,7 +38,7 @@ const TaskBoard: FC = () => {
           </BoardButton>
           <BoardButton
             styles="text-white bg-sky-800 border-2 justify-center"
-            clickHandler={() => dispatch(createTaskList(taskList))}
+            clickHandler={handleCreateTaskList}
           >
             <IconPlus color="white" />
             Create new list
@@ -46,6 +52,7 @@ const TaskBoard: FC = () => {
             key={taskList.id}
             taskList={taskList}
             taskLists={taskLists}
+            isNewList={isNewList}
           />
         ))}
       </section>

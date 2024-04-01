@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import IconCollapse from "./UI/icons/IconCollapse";
 import PriorityLabel from "./UI/PriorityLabel";
 import DropDown from "./UI/DropDown";
@@ -15,6 +15,9 @@ import {
 } from "../store/reducers/ActionCreators";
 import IconCalendar from "./UI/icons/IconCalendar";
 import { ITaskList } from "../models/TaskList";
+import TaskEditModal from "./UI/TaskEditModal";
+import TaskEditContent from "./TaskEditContent";
+import ActivityEditContent from "./ActivityEditContent";
 
 interface TaskCardProps {
   taskCard: ITaskCard;
@@ -24,6 +27,7 @@ interface TaskCardProps {
 const TaskCard: FC<TaskCardProps> = ({ taskCard, taskLists }) => {
   const dispatch = useAppDispatch();
   const anchor = `my-anchor-element-task-card-${taskCard.id}`;
+  const [modal, setModal] = useState<boolean>(false);
 
   const handleRemoveTaskCard = (): void => {
     if (taskCard.id) {
@@ -40,7 +44,8 @@ const TaskCard: FC<TaskCardProps> = ({ taskCard, taskLists }) => {
           name: taskCard.name,
           description: taskCard.description,
           dueDate: taskCard.dueDate,
-          priority: taskCard.priority
+          priority: taskCard.priority,
+          status: taskCard.status
         })
       );
     }
@@ -54,7 +59,10 @@ const TaskCard: FC<TaskCardProps> = ({ taskCard, taskLists }) => {
       </section>
 
       <TaskTooltip anchor={`#${anchor}`}>
-        <BoardButton styles="w-full hover:bg-gray-300">
+        <BoardButton
+          styles="w-full hover:bg-gray-300"
+          clickHandler={() => setModal(true)}
+        >
           <IconEdit />
           Edit
         </BoardButton>
@@ -66,6 +74,13 @@ const TaskCard: FC<TaskCardProps> = ({ taskCard, taskLists }) => {
           Delete
         </BoardButton>
       </TaskTooltip>
+
+      <TaskEditModal visible={modal} setVisible={setModal}>
+        <section className="flex justify-between">
+          <TaskEditContent taskCard={taskCard} />
+          <ActivityEditContent />
+        </section>
+      </TaskEditModal>
 
       <h5 className="opacity-70">{taskCard.description}</h5>
 

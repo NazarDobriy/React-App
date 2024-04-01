@@ -1,16 +1,15 @@
 import axios from "axios";
 import { AppDispatch } from "../store";
 import { ITaskList } from "../../models/TaskList";
-import { environment } from "../../environments/environment";
 import { taskListSlice } from "./TaskListSlice";
 import { ITaskCard } from "../../models/TaskCard";
 
-const url = environment.apiUrl;
+const apiUrl = "http://localhost:5000/api";
 
 export const fetchTaskLists = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(taskListSlice.actions.fetchTaskLists());
-    const response = await axios.get<ITaskList[]>(`${url}/tasks`);
+    const response = await axios.get<ITaskList[]>(`${apiUrl}/tasks`);
     dispatch(taskListSlice.actions.fetchTaskListsSuccess(response.data));
   } catch (error) {
     dispatch(
@@ -25,7 +24,7 @@ export const createTaskList =
   (taskList: ITaskList) => async (dispatch: AppDispatch) => {
     try {
       dispatch(taskListSlice.actions.createTaskList());
-      const response = await axios.post<ITaskList>(`${url}/tasks`, {
+      const response = await axios.post<ITaskList>(`${apiUrl}/tasks`, {
         method: "POST",
         ...taskList
       });
@@ -44,7 +43,7 @@ export const updateTaskList =
     try {
       dispatch(taskListSlice.actions.updateTaskList());
       const response = await axios.patch<ITaskList>(
-        `${url}/tasks/${taskList.id}`,
+        `${apiUrl}/tasks/${taskList.id}`,
         {
           method: "PATCH",
           ...taskList
@@ -63,7 +62,7 @@ export const updateTaskList =
 export const deleteTaskList = (id: number) => async (dispatch: AppDispatch) => {
   try {
     dispatch(taskListSlice.actions.deleteTaskList());
-    const response = await axios.delete<ITaskList>(`${url}/tasks/${id}`);
+    const response = await axios.delete<ITaskList>(`${apiUrl}/tasks/${id}`);
     dispatch(taskListSlice.actions.deleteTaskListSuccess(response.data));
   } catch (error) {
     dispatch(
@@ -78,7 +77,7 @@ export const createTaskCard =
   (taskCard: ITaskCard) => async (dispatch: AppDispatch) => {
     try {
       dispatch(taskListSlice.actions.createTaskCard());
-      const response = await axios.post<ITaskCard>(`${url}/task-card`, {
+      const response = await axios.post<ITaskCard>(`${apiUrl}/task-card`, {
         method: "POST",
         ...taskCard
       });
@@ -95,7 +94,7 @@ export const createTaskCard =
 export const deleteTaskCard = (id: number) => async (dispatch: AppDispatch) => {
   try {
     dispatch(taskListSlice.actions.deleteTaskCard());
-    const response = await axios.delete<ITaskCard>(`${url}/task-card/${id}`);
+    const response = await axios.delete<ITaskCard>(`${apiUrl}/task-card/${id}`);
     dispatch(taskListSlice.actions.deleteTaskCardSuccess(response.data));
   } catch (error) {
     dispatch(
@@ -111,7 +110,7 @@ export const updateTaskCard =
     try {
       dispatch(taskListSlice.actions.updateTaskCard());
       const response = await axios.patch<ITaskCard>(
-        `${url}/task-card/${taskCard.id}`,
+        `${apiUrl}/task-card/${taskCard.id}`,
         {
           method: "PATCH",
           ...taskCard
