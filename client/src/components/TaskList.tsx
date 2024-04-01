@@ -11,14 +11,19 @@ import { taskCard } from "../consts/TaskCard";
 interface TaskListProps {
   taskList: ITaskList;
   taskLists: ITaskList[];
+  isNewList: boolean;
 }
 
-const TaskList: FC<TaskListProps> = ({ taskList, taskLists }) => {
+const TaskList: FC<TaskListProps> = ({ taskList, taskLists, isNewList }) => {
   const dispatch = useAppDispatch();
 
   return (
     <div className="w-64">
-      <TaskListInfo taskList={taskList} amount={taskList.taskCards.length} />
+      <TaskListInfo
+        taskList={taskList}
+        isNewList={isNewList}
+        amount={taskList.taskCards.length}
+      />
 
       <BoardButton
         styles="w-full mt-3 border-dashed border-2 justify-center"
