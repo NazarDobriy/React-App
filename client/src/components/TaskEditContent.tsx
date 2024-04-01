@@ -55,6 +55,12 @@ const TaskEditContent: FC<TaskEditContentProps> = ({ taskCard }) => {
     }
   };
 
+  const handleUpdateTaskCardDate = (date: Date): void => {
+    if (date !== taskCard.dueDate) {
+      dispatch(updateTaskCard({ ...taskCard, dueDate: date }));
+    }
+  };
+
   return (
     <div className="p-7 rounded-b-xl rounded-r-none w-[60%]">
       <div className="flex justify-between items-center h-9">
@@ -100,7 +106,12 @@ const TaskEditContent: FC<TaskEditContentProps> = ({ taskCard }) => {
           <IconCalendar />
           Due date
         </div>
-        <TaskDatePicker styles="font-semibold" disabled={!isEdit} />
+        <TaskDatePicker
+          styles="font-semibold"
+          disabled={!isEdit}
+          initialStartDate={taskCard.dueDate}
+          clickHandler={(date: Date) => handleUpdateTaskCardDate(date)}
+        />
       </div>
 
       <div className="flex justify-start items-center pt-5 gap-[105px]">
