@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import IconCollapse from "./UI/icons/IconCollapse";
+import IconCollapse from "./UI/Icons/IconCollapse";
 import EditableText from "../helpers/EditableText";
 import { useAppDispatch } from "../hooks/redux";
 import {
@@ -10,9 +10,9 @@ import {
 import { ITaskList } from "../models/TaskList";
 import TaskTooltip from "./UI/TaskTooltip";
 import BoardButton from "./UI/BoardButton";
-import IconTrash from "./UI/icons/IconTrash";
-import IconPlus from "./UI/icons/IconPlus";
-import IconEdit from "./UI/icons/IconEdit";
+import IconTrash from "./UI/Icons/IconTrash";
+import IconPlus from "./UI/Icons/IconPlus";
+import IconEdit from "./UI/Icons/IconEdit";
 import { taskCard } from "../consts/TaskCard";
 
 interface TaskListInfoProps {

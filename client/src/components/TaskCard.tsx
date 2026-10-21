@@ -1,19 +1,19 @@
 import { FC, useState } from "react";
-import IconCollapse from "./UI/icons/IconCollapse";
+import IconCollapse from "./UI/Icons/IconCollapse";
 import PriorityLabel from "./UI/PriorityLabel";
 import DropDown from "./UI/DropDown";
 import { ITaskCard } from "../models/TaskCard";
 import TaskDatePicker from "./UI/TaskDatePicker";
 import TaskTooltip from "./UI/TaskTooltip";
 import BoardButton from "./UI/BoardButton";
-import IconEdit from "./UI/icons/IconEdit";
-import IconTrash from "./UI/icons/IconTrash";
+import IconEdit from "./UI/Icons/IconEdit";
+import IconTrash from "./UI/Icons/IconTrash";
 import { useAppDispatch } from "../hooks/redux";
 import {
   createTaskCard,
   deleteTaskCard
 } from "../store/reducers/ActionCreators";
-import IconCalendar from "./UI/icons/IconCalendar";
+import IconCalendar from "./UI/Icons/IconCalendar";
 import { ITaskList } from "../models/TaskList";
 import TaskEditModal from "./UI/TaskEditModal";
 import TaskEditContent from "./TaskEditContent";

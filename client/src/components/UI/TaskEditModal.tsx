@@ -1,5 +1,5 @@
 import { FC, ReactNode, MouseEvent } from "react";
-import IconClose from "./icons/IconClose";
+import IconClose from "./Icons/IconClose";
 
 interface TaskEditModalProps {
   children: ReactNode;

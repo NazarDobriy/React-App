@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
 import { ITaskCard, PriorityLabelType, StatusType } from "../models/TaskCard";
 import BoardButton from "./UI/BoardButton";
-import IconEdit from "./UI/icons/IconEdit";
-import IconTarget from "./UI/icons/IconTarget";
-import IconCalendar from "./UI/icons/IconCalendar";
+import IconEdit from "./UI/Icons/IconEdit";
+import IconTarget from "./UI/Icons/IconTarget";
+import IconCalendar from "./UI/Icons/IconCalendar";
 import TaskDatePicker from "./UI/TaskDatePicker";
-import IconTag from "./UI/icons/IconTag";
+import IconTag from "./UI/Icons/IconTag";
 import ListSelect from "./UI/ListSelect";
 import { useAppDispatch } from "../hooks/redux";
 import { updateTaskCard } from "../store/reducers/ActionCreators";

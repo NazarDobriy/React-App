@@ -1,7 +1,7 @@
 import { FC } from "react";
 import TaskListInfo from "./TaskListInfo";
 import BoardButton from "./UI/BoardButton";
-import IconPlus from "./UI/icons/IconPlus";
+import IconPlus from "./UI/Icons/IconPlus";
 import TaskCard from "./TaskCard";
 import { ITaskList } from "../models/TaskList";
 import { useAppDispatch } from "../hooks/redux";

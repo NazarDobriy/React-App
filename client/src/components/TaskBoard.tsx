@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import BoardButton from "./UI/BoardButton";
-import IconPlus from "./UI/icons/IconPlus";
-import IconReload from "./UI/icons/IconReload";
+import IconPlus from "./UI/Icons/IconPlus";
+import IconReload from "./UI/Icons/IconReload";
 import TaskList from "./TaskList";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import {
@@ -29,13 +29,6 @@ const TaskBoard: FC = () => {
       <nav className="flex justify-between flex-col sm:flex-row gap-5 sm:gap-0 items-center">
         <h2 className="text-xl font-bold">My Task board</h2>
         <section className="flex">
-          <BoardButton
-            styles="border-2 mr-5 justify-center"
-            clickHandler={() => {}}
-          >
-            <IconReload />
-            History
-          </BoardButton>
           <BoardButton
             styles="text-white bg-sky-800 border-2 justify-center"
             clickHandler={handleCreateTaskList}
